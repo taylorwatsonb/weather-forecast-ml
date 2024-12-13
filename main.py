@@ -80,20 +80,29 @@ if st.session_state.data_processor.data is not None:
     # ML Model Training and Prediction
     st.header("ML Model Analysis")
     
+    # Model Selection
+    model_option = st.selectbox(
+        "Select ML Model",
+        ["Linear Regression", "Random Forest", "XGBoost"],
+        help="Choose the machine learning model for weather prediction"
+    )
+    
     if st.button("Train Model"):
         X, y = st.session_state.data_processor.prepare_ml_data()
         if X is not None and y is not None:
-            results = st.session_state.predictor.train_model(X, y)
+            with st.spinner(f'Training {model_option} model...'):
+                results = st.session_state.predictor.train_model(X, y, model_option)
             
             if results:
+                # Model Performance Metrics
                 col1, col2 = st.columns(2)
-                
                 with col1:
                     st.metric("Root Mean Square Error", f"{results['rmse']:.2f}")
-                
                 with col2:
                     st.metric("R² Score", f"{results['r2']:.2f}")
                 
+                # Predictions Plot
+                st.subheader("Model Predictions vs Actual Values")
                 st.plotly_chart(
                     st.session_state.visualizer.plot_prediction_results(
                         results['test_actual'],
@@ -102,6 +111,16 @@ if st.session_state.data_processor.data is not None:
                     ),
                     use_container_width=True
                 )
+                
+                # Feature Importance Plot
+                if results['feature_importance'] is not None:
+                    st.subheader("Feature Importance Analysis")
+                    st.plotly_chart(
+                        st.session_state.visualizer.plot_feature_importance(
+                            results['feature_importance']
+                        ),
+                        use_container_width=True
+                    )
             else:
                 st.error("Error training the model")
         else:
