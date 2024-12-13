@@ -20,7 +20,7 @@ if 'visualizer' not in st.session_state:
     st.session_state.visualizer = WeatherVisualizer()
 
 # App title and description
-st.title("🌤️ Weather Forecasting with ML")
+st.title("🌤️ Taylor's Weather Forecasting with ML")
 st.markdown("""
 This application uses machine learning to analyze and predict weather patterns.
 Upload your weather data or use sample data to explore the predictions.
