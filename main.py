@@ -80,14 +80,19 @@ if st.session_state.data_processor.data is not None:
     # ML Model Training and Prediction
     st.header("ML Model Analysis")
     
-    # Model Selection
-    model_option = st.selectbox(
-        "Select ML Model",
-        ["Linear Regression", "Random Forest", "XGBoost"],
-        help="Choose the machine learning model for weather prediction"
-    )
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.subheader("Model Configuration")
+        model_option = st.selectbox(
+            "Select ML Model",
+            ["Linear Regression", "Random Forest", "XGBoost"],
+            help="Choose the machine learning model for weather prediction"
+        )
+    with col2:
+        st.subheader("Training")
+        train_button = st.button("Train Model")
     
-    if st.button("Train Model"):
+    if train_button:
         X, y = st.session_state.data_processor.prepare_ml_data()
         if X is not None and y is not None:
             with st.spinner(f'Training {model_option} model...'):
