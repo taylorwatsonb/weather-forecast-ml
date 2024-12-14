@@ -55,8 +55,10 @@ with st.sidebar:
                 st.error(message)
     else:
         if st.button("Generate Sample Data"):
-            df = st.session_state.data_processor.generate_sample_data()
-            st.success("Sample data generated!")
+            with st.spinner("Generating sample weather data..."):
+                df = st.session_state.data_processor.generate_sample_data()
+                st.success("✨ Sample data generated! Scroll down to see the analysis.")
+                st.balloons()
 
 # Real-time Weather Section
 st.header("🌡️ Real-time Weather")
@@ -152,16 +154,23 @@ if st.session_state.data_processor.data is not None:
     if train_button:
         X, y = st.session_state.data_processor.prepare_ml_data()
         if X is not None and y is not None:
-            with st.spinner(f'Training {model_option} model...'):
+            with st.spinner(f'🤖 Training {model_option} model... This may take a moment.'):
                 results = st.session_state.predictor.train_model(X, y, model_option)
             
             if results:
+                st.success(f"✅ {model_option} model trained successfully!")
+                
                 # Model Performance Metrics
+                st.subheader("📊 Model Performance")
                 col1, col2 = st.columns(2)
                 with col1:
-                    st.metric("Root Mean Square Error", f"{results['rmse']:.2f}")
+                    st.metric("Root Mean Square Error (RMSE)", 
+                             f"{results['rmse']:.2f}",
+                             help="Lower RMSE indicates better predictions")
                 with col2:
-                    st.metric("R² Score", f"{results['r2']:.2f}")
+                    st.metric("R² Score", 
+                             f"{results['r2']:.2f}",
+                             help="Higher R² indicates better fit (max: 1.0)")
                 
                 # Predictions Plot
                 st.subheader("Model Predictions vs Actual Values")
