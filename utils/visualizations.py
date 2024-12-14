@@ -136,21 +136,53 @@ class WeatherVisualizer:
 
     @staticmethod
     def plot_feature_importance(feature_importance_df):
-        """Plot feature importance analysis"""
-        fig = px.bar(
-            feature_importance_df,
-            x='importance',
-            y='feature',
-            orientation='h',
-            title='Feature Importance Analysis',
-            labels={'importance': 'Importance Score', 'feature': 'Feature'},
-        )
+        """Plot enhanced feature importance analysis with detailed metrics"""
+        # Calculate relative importance percentage
+        total_importance = feature_importance_df['importance'].sum()
+        feature_importance_df['importance_pct'] = (feature_importance_df['importance'] / total_importance * 100).round(2)
         
+        # Create the bar plot with enhanced styling
+        fig = go.Figure()
+        
+        # Add bars with gradient colors
+        fig.add_trace(go.Bar(
+            x=feature_importance_df['importance'],
+            y=feature_importance_df['feature'],
+            orientation='h',
+            marker=dict(
+                color=feature_importance_df['importance'],
+                colorscale='Viridis',
+                showscale=True,
+                colorbar=dict(title='Importance Score')
+            ),
+            text=feature_importance_df['importance_pct'].apply(lambda x: f'{x:.1f}%'),
+            textposition='auto',
+            hovertemplate='<b>%{y}</b><br>' +
+                         'Importance Score: %{x:.4f}<br>' +
+                         'Relative Importance: %{text}<br>' +
+                         '<extra></extra>'
+        ))
+        
+        # Update layout with enhanced styling
         fig.update_layout(
-            showlegend=False,
+            title={
+                'text': 'Feature Importance Analysis',
+                'y':0.95,
+                'x':0.5,
+                'xanchor': 'center',
+                'yanchor': 'top',
+                'font': dict(size=20)
+            },
             xaxis_title='Importance Score',
             yaxis_title='Feature',
-            yaxis={'categoryorder': 'total ascending'}
+            yaxis={'categoryorder': 'total ascending'},
+            plot_bgcolor='white',
+            hoverlabel=dict(bgcolor='white'),
+            margin=dict(l=20, r=20, t=60, b=20),
+            height=400
         )
+        
+        # Add grid lines
+        fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray')
         
         return fig
