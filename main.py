@@ -193,4 +193,9 @@ def main():
         return
 
 if __name__ == "__main__":
-    main()
+    try:
+        port = int(os.getenv('PORT', 8501))
+        main()
+    except Exception as e:
+        logger.error(f"Application failed to start: {str(e)}")
+        sys.exit(1)

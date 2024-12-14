@@ -34,9 +34,14 @@ git clone https://github.com/yourusername/weather-forecast-ml.git
 cd weather-forecast-ml
 ```
 
-2. Install required packages:
+2. Set up a virtual environment and install dependencies:
 ```bash
-pip install streamlit pandas numpy scikit-learn plotly requests
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
 3. Set up your environment variables:
@@ -47,16 +52,19 @@ OPENWEATHERMAP_API_KEY=your_api_key_here
 
 ### Running the Application
 
-Start the application:
+1. Ensure your virtual environment is activated
+2. Run the setup script:
 ```bash
-# Install dependencies
+chmod +x setup.sh  # Make the script executable (Unix/Linux only)
 ./setup.sh
+```
 
-# Start the application
+3. Start the application:
+```bash
 streamlit run main.py
 ```
 
-The application will be available at `http://localhost:8501` by default.
+The application will be available at `http://localhost:8501`
 
 ### Development Setup
 

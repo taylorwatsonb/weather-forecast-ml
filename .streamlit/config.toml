@@ -5,13 +5,11 @@ secondaryBackgroundColor = "#F0F2F6"
 textColor = "#262730"
 
 [server]
-headless = true
-runOnSave = true
-port = 5000
+port = 8501
 address = "0.0.0.0"
 
 [browser]
-serverAddress = "0.0.0.0"
+serverAddress = "localhost"
 serverPort = 8501
 gatherUsageStats = false
 
