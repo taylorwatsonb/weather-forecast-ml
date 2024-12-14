@@ -7,9 +7,18 @@ from utils.weather_api import WeatherAPI
 
 # Page configuration
 st.set_page_config(
-    page_title="Weather Forecast ML",
+    page_title="Taylor's Weather Forecast ML",
     page_icon="🌤️",
-    layout="wide"
+    layout="wide",
+    menu_items={
+        'Get Help': 'https://github.com/yourusername/weather-forecast-ml/issues',
+        'Report a bug': 'https://github.com/yourusername/weather-forecast-ml/issues/new',
+        'About': '''
+        # Weather Forecast ML
+        An advanced weather forecasting application combining real-time data with machine learning.
+        © 2024
+        '''
+    }
 )
 
 # Initialize session state

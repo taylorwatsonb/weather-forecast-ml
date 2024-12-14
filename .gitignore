@@ -41,18 +41,13 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Replit-specific files (to be excluded)
-.replit
-replit.nix
-.breakpoints
+# Development Environment
 poetry.lock
-pyproject.toml
-uv.lock
-generated-icon.png
-.pythonlibs/
-.config/
-.upm/
+*.lock
 .cache/
+.local/
+.venv/
+__pycache__/
 
 # Logs and temporary files
 *.log
