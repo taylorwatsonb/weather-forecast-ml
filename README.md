@@ -109,11 +109,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/yourusername/weather-forecast-ml/issues).
-
+Contributions, issues, and feature requests are welcome! 
 ## 👥 Authors
 
-- Initial work - [Your Name]
+- Initial work - Taylor Watson
 
 ## 🙏 Acknowledgments
 
