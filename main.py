@@ -69,7 +69,9 @@ with col1:
             current_weather = st.session_state.weather_api.get_current_weather(st.session_state.selected_city)
             forecast = st.session_state.weather_api.get_forecast(st.session_state.selected_city)
             
-            if current_weather is None:
+            if current_weather == "API_INACTIVE":
+                st.warning("The weather API key is still being activated. This usually takes 2-4 hours after registration. Please try again later.")
+            elif current_weather is None:
                 st.error(f"Could not find weather data for '{st.session_state.selected_city}'. Please enter a valid city name (e.g., 'Austin' instead of 'Texas').")
             else:
                 st.session_state.current_weather = current_weather

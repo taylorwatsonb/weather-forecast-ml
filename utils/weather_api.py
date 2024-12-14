@@ -38,8 +38,14 @@ class WeatherAPI:
                 'wind_speed': data['wind']['speed'],
                 'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 401:
+                print(f"API Key unauthorized or inactive. Please wait a few hours for the API key to be activated.")
+                return "API_INACTIVE"
+            print(f"HTTP Error fetching weather data: {str(e)}")
+            return None
         except Exception as e:
-            print(f"Error fetching weather data: {str(e)}")
+            print(f"Unexpected error fetching weather data: {str(e)}")
             return None
 
     def get_forecast(self, city="San Francisco", country="US"):
