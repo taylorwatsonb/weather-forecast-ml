@@ -4,33 +4,23 @@ import sys
 import logging
 from pathlib import Path
 
-# Initialize logger
-logger = logging.getLogger(__name__)
-
 # Configure logging
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler('app.log')
+        logging.StreamHandler(sys.stdout)
     ]
 )
+logger = logging.getLogger(__name__)
 
-# Add more detailed startup logging
-logger.debug("Python version: %s", sys.version)
-logger.debug("Current working directory: %s", os.getcwd())
-logger.debug("PYTHONPATH: %s", sys.path)
+# Ensure we're in the correct directory
+current_dir = Path(__file__).parent.absolute()
+os.chdir(str(current_dir))
+sys.path.insert(0, str(current_dir))
 
-# Setup application paths
-BASE_DIR = Path(__file__).parent.absolute()
-os.chdir(str(BASE_DIR))
-
-# Add application directory to Python path
-if str(BASE_DIR) not in sys.path:
-    sys.path.insert(0, str(BASE_DIR))
-
-logger.info(f"Application directory: {BASE_DIR}")
+logger.info(f"Working directory: {os.getcwd()}")
+logger.info(f"Python path: {sys.path}")
 
 # Required package imports
 try:

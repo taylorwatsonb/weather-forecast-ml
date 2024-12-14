@@ -10,8 +10,11 @@ runOnSave = true
 port = 8501
 address = "0.0.0.0"
 maxUploadSize = 200
+enableXsrfProtection = false
+enableCORS = false
 
 [browser]
+serverAddress = "0.0.0.0"
 serverPort = 8501
 gatherUsageStats = false
 
