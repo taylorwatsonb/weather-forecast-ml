@@ -42,7 +42,6 @@ ENV/
 Thumbs.db
 
 # Development Environment
-.env
 poetry.lock
 *.lock
 .cache/
@@ -63,3 +62,12 @@ __pycache__/
 *.log
 *.tmp
 *.temp
+
+# Replit specific files
+.replit
+replit.nix
+.replitenv
+.upm/
+.cache/
+.config/
+.env
