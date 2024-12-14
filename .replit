@@ -1,42 +1,12 @@
+
 modules = ["python-3.11"]
 
 [nix]
 channel = "stable-24_05"
 
-[workflows]
-runButton = "Project"
-
-[[workflows.workflow]]
-name = "Project"
-mode = "parallel"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Weather Forecast ML"
-
-[[workflows.workflow]]
-name = "Weather Forecast ML"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python3 -m streamlit run main.py --server.address 0.0.0.0 --server.port 5000 --logger.level=debug"
-waitForPort = 5000
-
 [deployment]
-run = ["sh", "-c", "python3 -m streamlit run main.py --server.address 0.0.0.0 --server.port 5000 --logger.level=debug"]
+run = ["sh", "-c", "python3 -m streamlit run main.py --server.address 0.0.0.0 --server.port 5000 --server.headless true --server.enableCORS false --server.enableWebsocketCompression false"]
 
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[ports]]
-localPort = 8501
-externalPort = 3000
