@@ -162,12 +162,16 @@ if st.session_state.data_processor.data is not None:
                 
                 # Model Performance Metrics
                 st.subheader("📊 Model Performance")
-                col1, col2 = st.columns(2)
+                col1, col2, col3 = st.columns(3)
                 with col1:
-                    st.metric("Root Mean Square Error (RMSE)", 
+                    st.metric("Test RMSE", 
                              f"{results['rmse']:.2f}",
                              help="Lower RMSE indicates better predictions")
                 with col2:
+                    st.metric("Cross-Val RMSE", 
+                             f"{results['cv_rmse_mean']:.2f} ± {results['cv_rmse_std']:.2f}",
+                             help="Average RMSE across 5-fold cross-validation")
+                with col3:
                     st.metric("R² Score", 
                              f"{results['r2']:.2f}",
                              help="Higher R² indicates better fit (max: 1.0)")
