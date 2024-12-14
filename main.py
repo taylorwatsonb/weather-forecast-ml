@@ -3,6 +3,7 @@ import pandas as pd
 from utils.data_processor import WeatherDataProcessor
 from utils.ml_models import WeatherPredictor
 from utils.visualizations import WeatherVisualizer
+from utils.weather_api import WeatherAPI
 
 # Page configuration
 st.set_page_config(
@@ -18,6 +19,12 @@ if 'predictor' not in st.session_state:
     st.session_state.predictor = WeatherPredictor()
 if 'visualizer' not in st.session_state:
     st.session_state.visualizer = WeatherVisualizer()
+if 'weather_api' not in st.session_state:
+    st.session_state.weather_api = WeatherAPI()
+
+# Add city selection to session state
+if 'selected_city' not in st.session_state:
+    st.session_state.selected_city = "San Francisco"
 
 # App title and description
 st.title("🌤️ Taylor's Weather Forecasting with ML")
@@ -51,7 +58,39 @@ with st.sidebar:
             df = st.session_state.data_processor.generate_sample_data()
             st.success("Sample data generated!")
 
-# Main content
+# Real-time Weather Section
+st.header("🌡️ Real-time Weather")
+col1, col2 = st.columns([1, 2])
+
+with col1:
+    st.session_state.selected_city = st.text_input("City", value=st.session_state.selected_city)
+    if st.button("Update Weather"):
+        st.session_state.current_weather = st.session_state.weather_api.get_current_weather(st.session_state.selected_city)
+        st.session_state.forecast = st.session_state.weather_api.get_forecast(st.session_state.selected_city)
+
+with col2:
+    if 'current_weather' in st.session_state and st.session_state.current_weather:
+        weather = st.session_state.current_weather
+        st.markdown(f"""
+        ### Current Conditions in {st.session_state.selected_city}
+        - Temperature: {weather['temperature']}°C (Feels like: {weather['feels_like']}°C)
+        - Conditions: {weather['description']}
+        - Humidity: {weather['humidity']}%
+        - Wind Speed: {weather['wind_speed']} m/s
+        - Last Updated: {weather['timestamp']}
+        """)
+
+if 'forecast' in st.session_state and st.session_state.forecast:
+    st.subheader("5-Day Forecast")
+    forecast_cols = st.columns(5)
+    for idx, forecast in enumerate(st.session_state.forecast[:5]):
+        with forecast_cols[idx]:
+            st.write(forecast['timestamp'].strftime("%A"))
+            st.write(f"{forecast['temperature']}°C")
+            st.write(forecast['description'])
+
+# Historical Data Analysis
+st.header("📊 Historical Data Analysis")
 if st.session_state.data_processor.data is not None:
     # Data Overview
     st.header("Data Overview")
