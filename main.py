@@ -2,42 +2,25 @@
 import os
 import sys
 import logging
-from pathlib import Path
 
 # Configure logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ]
-)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Ensure we're in the correct directory
-current_dir = Path(__file__).parent.absolute()
-os.chdir(str(current_dir))
-sys.path.insert(0, str(current_dir))
-
-logger.info(f"Working directory: {os.getcwd()}")
-logger.info(f"Python path: {sys.path}")
-
-# Required package imports
+# Try importing required packages
 try:
-    import streamlit as st
-    import pandas as pd
     from dotenv import load_dotenv
-    logger.info("Successfully imported all required packages")
-except ImportError as e:
-    logger.error(f"Failed to import required packages: {str(e)}")
-    sys.exit(1)
-
-# Load environment variables
-try:
+    logger.debug("Successfully imported dotenv")
+    import streamlit as st
+    logger.debug("Successfully imported streamlit")
+    import pandas as pd
+    logger.debug("Successfully imported pandas")
+    
+    # Load environment variables
     load_dotenv()
-    logger.info("Environment variables loaded successfully")
-except Exception as e:
-    logger.error(f"Error loading environment variables: {str(e)}")
+    logger.debug("Environment variables loaded")
+except ImportError as e:
+    print(f"Error importing required packages: {str(e)}")
     sys.exit(1)
 
 def run_app(st, WeatherDataProcessor, WeatherPredictor, WeatherVisualizer, WeatherAPI):
@@ -194,25 +177,20 @@ def run_app(st, WeatherDataProcessor, WeatherPredictor, WeatherVisualizer, Weath
     """, unsafe_allow_html=True)
 
 def main():
-    """Main entry point for the Weather Forecasting ML application."""
     try:
-        # Import application modules
+        import streamlit as st
+        import pandas as pd
         from utils.data_processor import WeatherDataProcessor
         from utils.ml_models import WeatherPredictor
         from utils.visualizations import WeatherVisualizer
         from utils.weather_api import WeatherAPI
-        logger.info("Successfully imported application modules")
         
         # Initialize the app
         run_app(st, WeatherDataProcessor, WeatherPredictor, WeatherVisualizer, WeatherAPI)
     except ImportError as e:
-        logger.error(f"Failed to import application modules: {str(e)}")
-        st.error("⚠️ Error: Failed to initialize application modules")
-        st.info("Please check the application logs for more details.")
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        st.error("⚠️ An unexpected error occurred")
-        st.info("Please check the application logs for more details.")
+        st.error(f"Error importing required packages: {str(e)}")
+        st.info("Please ensure all required packages are installed correctly.")
+        return
 
 if __name__ == "__main__":
     main()

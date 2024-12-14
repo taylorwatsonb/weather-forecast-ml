@@ -7,11 +7,8 @@ textColor = "#262730"
 [server]
 headless = true
 runOnSave = true
-port = 8501
+port = 5000
 address = "0.0.0.0"
-maxUploadSize = 200
-enableXsrfProtection = false
-enableCORS = false
 
 [browser]
 serverAddress = "0.0.0.0"
