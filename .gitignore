@@ -43,7 +43,6 @@ Thumbs.db
 
 # Development Environment
 .env
-poetry.lock
 *.lock
 .cache/
 .local/
@@ -53,12 +52,18 @@ __pycache__/
 replit.nix
 .breakpoints
 .config/
-poetry.lock
 *.pyc
-__pycache__/
 .pytest_cache/
+poetry.lock
+
+# Replit specific
+.replit/
 .breakpoints
+.replit
+replit.nix
+.upm/
 .config/
+.cache/
 
 # Logs and temporary files
 *.log

@@ -5,8 +5,14 @@ echo "🌤️ Setting up Weather Forecasting ML Application..."
 # Function to check Python version
 check_python() {
     if command -v python3 &> /dev/null; then
-        echo "✅ Python 3 detected"
-        return 0
+        python_version=$(python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+        if (( $(echo "$python_version >= 3.8" | bc -l) )); then
+            echo "✅ Python $python_version detected"
+            return 0
+        else
+            echo "❌ Python 3.8 or higher is required (found $python_version)"
+            exit 1
+        fi
     else
         echo "❌ Python 3 is required but not installed."
         echo "Please install Python 3.8 or higher and try again."
