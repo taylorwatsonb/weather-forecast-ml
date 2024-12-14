@@ -27,11 +27,11 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "streamlit run main.py --server.address 0.0.0.0 --server.port 8501"
+args = "python3 -m streamlit run main.py --server.address 0.0.0.0 --server.port 8501 --logger.level=debug"
 waitForPort = 8501
 
 [deployment]
-run = ["sh", "-c", "streamlit run main.py --server.address 0.0.0.0 --server.port 8501"]
+run = ["sh", "-c", "python3 -m streamlit run main.py --server.address 0.0.0.0 --server.port 8501 --logger.level=debug"]
 
 [[ports]]
 localPort = 5000

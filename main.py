@@ -1,15 +1,24 @@
-import streamlit as st
-import pandas as pd
-from utils.data_processor import WeatherDataProcessor
-from utils.ml_models import WeatherPredictor
-from utils.visualizations import WeatherVisualizer
-from utils.weather_api import WeatherAPI
+import os
+import sys
+print("Python version:", sys.version)
+print("Current working directory:", os.getcwd())
+try:
+    import streamlit as st
+    import pandas as pd
+    from utils.data_processor import WeatherDataProcessor
+    from utils.ml_models import WeatherPredictor
+    from utils.visualizations import WeatherVisualizer
+    from utils.weather_api import WeatherAPI
+    print("All required packages imported successfully")
+except ImportError as e:
+    print(f"Error importing required packages: {str(e)}")
+    raise
 
 # Page configuration
 st.set_page_config(
     page_title="Weather Forecast ML",
     page_icon="🌤️",
-    layout="wide")
+    layout="wide"
 )
 
 # Initialize session state
