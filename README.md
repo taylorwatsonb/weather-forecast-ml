@@ -47,12 +47,33 @@ OPENWEATHERMAP_API_KEY=your_api_key_here
 
 ### Running the Application
 
-Start the application by running:
+Start the application:
 ```bash
+# Install dependencies
+./setup.sh
+
+# Start the application
 streamlit run main.py
 ```
 
-The application will be available at `http://localhost:5000`
+The application will be available at `http://localhost:8501` by default.
+
+### Development Setup
+
+1. Fork the repository
+2. Create a new branch for your feature:
+```bash
+git checkout -b feature/your-feature-name
+```
+3. Make your changes and commit them:
+```bash
+git commit -m "Add your commit message"
+```
+4. Push to the branch:
+```bash
+git push origin feature/your-feature-name
+```
+5. Open a Pull Request
 
 ## 📊 Features in Detail
 

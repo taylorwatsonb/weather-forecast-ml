@@ -49,8 +49,13 @@ poetry.lock
 pyproject.toml
 uv.lock
 generated-icon.png
+.pythonlibs/
+.config/
+.upm/
+.cache/
 
 # Logs and temporary files
 *.log
 *.tmp
 *.temp
+.vercel
