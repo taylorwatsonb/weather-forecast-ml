@@ -49,14 +49,28 @@ class WeatherAPI:
             response.raise_for_status()
             data = response.json()
             
+            # Process and filter forecasts to get one forecast per day
             forecasts = []
+            seen_dates = set()
+            
             for item in data['list']:
-                forecasts.append({
-                    'timestamp': datetime.fromtimestamp(item['dt']),
-                    'temperature': round(item['main']['temp'], 1),
-                    'description': item['weather'][0]['description'].capitalize(),
-                    'icon': item['weather'][0]['icon']
-                })
+                forecast_date = datetime.fromtimestamp(item['dt'])
+                date_key = forecast_date.date()
+                
+                if date_key not in seen_dates:
+                    seen_dates.add(date_key)
+                    forecasts.append({
+                        'timestamp': forecast_date,
+                        'temperature': round(item['main']['temp'], 1),
+                        'description': item['weather'][0]['description'].capitalize(),
+                        'icon': item['weather'][0]['icon'],
+                        'humidity': item['main']['humidity'],
+                        'wind_speed': item['wind']['speed']
+                    })
+                    
+                    # Stop after getting 5 days of forecasts
+                    if len(forecasts) >= 5:
+                        break
             
             return forecasts
         except Exception as e:

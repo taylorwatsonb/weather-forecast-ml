@@ -81,13 +81,22 @@ with col2:
         """)
 
 if 'forecast' in st.session_state and st.session_state.forecast:
-    st.subheader("5-Day Forecast")
+    st.subheader("📅 5-Day Forecast")
     forecast_cols = st.columns(5)
     for idx, forecast in enumerate(st.session_state.forecast[:5]):
         with forecast_cols[idx]:
-            st.write(forecast['timestamp'].strftime("%A"))
-            st.write(f"{forecast['temperature']}°C")
-            st.write(forecast['description'])
+            st.markdown(f"""
+                #### {forecast['timestamp'].strftime("%A")}
+                ##### {forecast['timestamp'].strftime("%b %d")}
+                **{forecast['temperature']}°C**
+                {forecast['description']}
+                
+                💧 Humidity: {forecast['humidity']}%  
+                💨 Wind: {forecast['wind_speed']} m/s
+            """)
+            # Add a separator between days
+            if idx < 4:  # Don't add after the last column
+                st.markdown("---")
 
 # Historical Data Analysis
 st.header("📊 Historical Data Analysis")
