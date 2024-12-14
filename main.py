@@ -65,8 +65,15 @@ col1, col2 = st.columns([1, 2])
 with col1:
     st.session_state.selected_city = st.text_input("City", value=st.session_state.selected_city)
     if st.button("Update Weather"):
-        st.session_state.current_weather = st.session_state.weather_api.get_current_weather(st.session_state.selected_city)
-        st.session_state.forecast = st.session_state.weather_api.get_forecast(st.session_state.selected_city)
+        with st.spinner("Fetching weather data..."):
+            current_weather = st.session_state.weather_api.get_current_weather(st.session_state.selected_city)
+            forecast = st.session_state.weather_api.get_forecast(st.session_state.selected_city)
+            
+            if current_weather is None:
+                st.error(f"Could not find weather data for '{st.session_state.selected_city}'. Please enter a valid city name (e.g., 'Austin' instead of 'Texas').")
+            else:
+                st.session_state.current_weather = current_weather
+                st.session_state.forecast = forecast
 
 with col2:
     if 'current_weather' in st.session_state and st.session_state.current_weather:

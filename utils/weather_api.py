@@ -9,7 +9,14 @@ class WeatherAPI:
 
     def get_current_weather(self, city="San Francisco", country="US"):
         """Fetch current weather data for a given city"""
+        if not city:
+            return None
+            
         try:
+            # Handle common cases where users input state names
+            if city.lower() in ['texas', 'tx']:
+                city = 'Austin'  # Default to state capital
+                
             response = requests.get(
                 f"{self.base_url}/weather",
                 params={
