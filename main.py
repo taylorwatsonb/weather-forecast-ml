@@ -7,18 +7,9 @@ from utils.weather_api import WeatherAPI
 
 # Page configuration
 st.set_page_config(
-    page_title="Taylor's Weather Forecast ML",
+    page_title="Weather Forecast ML",
     page_icon="🌤️",
-    layout="wide",
-    menu_items={
-        'Get Help': 'https://github.com/yourusername/weather-forecast-ml/issues',
-        'Report a bug': 'https://github.com/yourusername/weather-forecast-ml/issues/new',
-        'About': '''
-        # Weather Forecast ML
-        An advanced weather forecasting application combining real-time data with machine learning.
-        © 2024
-        '''
-    }
+    layout="wide")
 )
 
 # Initialize session state
@@ -36,7 +27,7 @@ if 'selected_city' not in st.session_state:
     st.session_state.selected_city = "San Francisco"
 
 # App title and description
-st.title("🌤️ Taylor's Weather Forecasting with ML")
+st.title("🌤️ Weather Forecasting with ML")
 st.markdown("""
 This application uses machine learning to analyze and predict weather patterns.
 Upload your weather data or use sample data to explore the predictions.

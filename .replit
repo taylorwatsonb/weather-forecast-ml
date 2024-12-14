@@ -13,10 +13,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Flask Server"
+args = "Weather Forecast ML"
 
 [[workflows.workflow]]
-name = "Flask Server"
+name = "Weather Forecast ML"
 author = "agent"
 
 [workflows.workflow.metadata]
@@ -27,11 +27,11 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "streamlit run main.py"
+args = "streamlit run main.py --server.address 0.0.0.0 --server.port 8501"
 waitForPort = 8501
 
 [deployment]
-run = ["sh", "-c", "streamlit run main.py"]
+run = ["sh", "-c", "streamlit run main.py --server.address 0.0.0.0 --server.port 8501"]
 
 [[ports]]
 localPort = 5000

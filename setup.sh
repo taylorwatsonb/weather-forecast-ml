@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🌤️ Setting up Taylor's Weather Forecasting ML Application..."
+echo "🌤️ Setting up Weather Forecasting ML Application..."
 
 # Function to check Python version
 check_python() {

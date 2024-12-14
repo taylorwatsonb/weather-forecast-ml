@@ -1,4 +1,4 @@
-# 🌤️ Taylor's Weather Forecasting with ML
+# 🌤️ Weather Forecasting with ML
 
 An advanced weather forecasting application that combines real-time weather data with machine learning capabilities. This project features an interactive interface for model training, weather data visualization, and intelligent weather predictions.
 

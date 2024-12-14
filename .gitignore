@@ -42,15 +42,25 @@ ENV/
 Thumbs.db
 
 # Development Environment
+.env
 poetry.lock
 *.lock
 .cache/
 .local/
 .venv/
 __pycache__/
+.replit
+replit.nix
+.breakpoints
+.config/
+poetry.lock
+*.pyc
+__pycache__/
+.pytest_cache/
+.breakpoints
+.config/
 
 # Logs and temporary files
 *.log
 *.tmp
 *.temp
-.vercel
